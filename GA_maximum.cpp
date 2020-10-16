@@ -7,7 +7,7 @@
 #include<cmath>
 #include<ctime>
 #define pi 3.1415926535
-using namespace std;
+using namespace std;  
 const int N = 9999999;//随机数位数 
 const int maxN = 100;
 int n = 10;//群体规模
