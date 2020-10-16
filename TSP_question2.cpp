@@ -6,23 +6,23 @@
 #include<math.h>
 #include<cmath>
 #include<ctime>
-#define pi 3.1415926535
+#define pi 3.1415926535 
 using namespace std;
-const int N = 9999999;//Ëæ»úÊýÎ»Êý 
+const int N = 9999999;//ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ 
 const int maxN = 100;
-int n = 10;//ÈºÌå¹æÄ£
-double a[maxN];//ÈºÌåÊý×é
-double  temp[maxN];//ÓÃÓÚ¼ÇÂ¼Ã¿´Î¸üÐÂºóµÄÖÖÈº
-double ans[maxN];//ÊÊÓ¦ÖµÊý×é
-int loop_num = 10000;//µü´ú´ÎÊý
-double crossover = 0.88;//È¾É«Ìå½»Åä¸ÅÂÊ
-double mutation = 0.1;//È¾É«Ìå±äÒì¸ÅÂÊ
+int n = 10;//Èºï¿½ï¿½ï¿½Ä£
+double a[maxN];//Èºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+double  temp[maxN];//ï¿½ï¿½ï¿½Ú¼ï¿½Â¼Ã¿ï¿½Î¸ï¿½ï¿½Âºï¿½ï¿½ï¿½ï¿½Èº
+double ans[maxN];//ï¿½ï¿½Ó¦Öµï¿½ï¿½ï¿½ï¿½
+int loop_num = 10000;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+double crossover = 0.88;//È¾É«ï¿½å½»ï¿½ï¿½ï¿½ï¿½ï¿½
+double mutation = 0.1;//È¾É«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 double test_function(double x)
 {
 	double d = exp(-pow(x - 0.1, 2))*pow(sin(6 * pi*pow(x, 0.75)), 2);
 	return d;
 }
-double get_rand()//Éú³É0-1Ö®¼äµÄËæ»úÊý 
+double get_rand()//ï¿½ï¿½ï¿½ï¿½0-1Ö®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 {
 	long long a_l=rand(); 
 	double a = (a_l*a_l) % (N + 1) / (float)(N + 1);
@@ -36,15 +36,15 @@ void init()
 double solve()
 {
 	init();
-	double  best = -1;//bestÈ¾É«Ìå
-	double best_eval = -1;//best½á¹û
+	double  best = -1;//bestÈ¾É«ï¿½ï¿½
+	double best_eval = -1;//bestï¿½ï¿½ï¿½
 	for (int t = 0; t < loop_num; t++)
 	{
 		double  sum = 0;
 		for (int i = 1; i <= n; i++)
 		{
-			ans[i] = test_function(a[i]);//¼ÆËãÊÊÓ¦Öµ
-			sum += ans[i];//Çó³öÊÊÓ¦ÖµµÄºÍ
+			ans[i] = test_function(a[i]);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦Öµ
+			sum += ans[i];//ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦Öµï¿½Äºï¿½
 			if (ans[i] > best_eval)
 			{
 				best_eval = ans[i];
@@ -53,30 +53,30 @@ double solve()
 		}
 		for (int i = 1; i <= n; i++)
 		{
-			ans[i] /= sum;//¼ÆËãÃ¿¸öÈ¾É«ÌåÊÊÓ¦ÖµÍ¬ÈºÌåÊÊÓ¦Öµ×ÜºÍµÄ±È
+			ans[i] /= sum;//ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½È¾É«ï¿½ï¿½ï¿½ï¿½Ó¦ÖµÍ¬Èºï¿½ï¿½ï¿½ï¿½Ó¦Öµï¿½ÜºÍµÄ±ï¿½
 		}
-		for (int c = 1; c <= n; c++)//n´ÎÑ¡Ôñ(ÂÖÅÌ¶ÄËã·¨)
+		for (int c = 1; c <= n; c++)//nï¿½ï¿½Ñ¡ï¿½ï¿½(ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ã·¨)
 		{
 			double r = get_rand();
 			int i = 1;
 			double  sum = ans[i];
-			while (i <= n && sum < r) i++, sum += ans[i];//ÕâÒ»´ÎÑ¡³öµÄÊÇi
+			while (i <= n && sum < r) i++, sum += ans[i];//ï¿½ï¿½Ò»ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½i
 			temp[c] = a[i];
 		}
-		memcpy(a, temp, sizeof temp);//¸üÐÂºóµÄÖÖÈº×÷ÎªÐÂµÄÖÖÈº
-		//Ò»¸öÈ¾É«ÌåÖ»ÓÐÒ»Î»£¬ÔõÃ´½»Åä°¡£¿
+		memcpy(a, temp, sizeof temp);//ï¿½ï¿½ï¿½Âºï¿½ï¿½ï¿½ï¿½Èºï¿½ï¿½Îªï¿½Âµï¿½ï¿½ï¿½Èº
+		//Ò»ï¿½ï¿½È¾É«ï¿½ï¿½Ö»ï¿½ï¿½Ò»Î»ï¿½ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½ä°¡ï¿½ï¿½
 		for (int i = 1; i <= n; i++)
 		{
 			if (get_rand() < mutation)
 				a[i] = get_rand();
 		}
 	}
-	cout << "Ê¹µÃ±í´ïÊ½È¡µ½×î´óÖµÊ±xµÄÖµ:"<<best << endl;
+	cout << "Ê¹ï¿½Ã±ï¿½ï¿½ï¿½Ê½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ÖµÊ±xï¿½ï¿½Öµ:"<<best << endl;
 	return best_eval;
 }
 int main()
 {
 	srand((unsigned)time(NULL));
-	cout <<"±í´ïÊ½×î´óµÄÖµ:" <<solve() << endl;
+	cout <<"ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½Öµ:" <<solve() << endl;
 	system("pause");
 }
